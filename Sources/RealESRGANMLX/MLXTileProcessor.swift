@@ -37,7 +37,7 @@ import MLX
 /// `[1, H, W, 3]` NHWC RGB float32 tensor and returns an upscaled tensor
 /// `[1, H*scale, W*scale, 3]`. The driver handles CVPixelBuffer extraction,
 /// stitching, and feather blending.
-struct MLXTileProcessor: @unchecked Sendable {
+public struct MLXTileProcessor: @unchecked Sendable {
 
     let tileSize: Int
     let overlap: Int
@@ -47,7 +47,7 @@ struct MLXTileProcessor: @unchecked Sendable {
     /// CIContext is expensive, so keep one alive for the process lifetime.
     private static let ciContext = CIContext(options: [.cacheIntermediates: false])
 
-    init(tileSize: Int, overlap: Int, scale: Int) {
+    public init(tileSize: Int, overlap: Int, scale: Int) {
         self.tileSize = tileSize
         self.overlap = overlap
         self.scale = scale
@@ -99,7 +99,7 @@ struct MLXTileProcessor: @unchecked Sendable {
     ///     returning, so the driver can safely read floats out.
     /// - Returns: upscaled BGRA `CVPixelBuffer` at `scale` × the input
     ///   dimensions.
-    func process(
+    public func process(
         _ rawInput: CVPixelBuffer,
         forward: (MLXArray) throws -> MLXArray
     ) throws -> CVPixelBuffer {
@@ -218,7 +218,7 @@ struct MLXTileProcessor: @unchecked Sendable {
     ///
     /// - Parameter wholeFrameMaxPixels: input-pixel ceiling for the
     ///   single-pass path. Pass `0` to force tiling.
-    func processAdaptive(
+    public func processAdaptive(
         _ input: CVPixelBuffer,
         wholeFrameMaxPixels: Int,
         forward: (MLXArray) throws -> MLXArray
@@ -236,7 +236,7 @@ struct MLXTileProcessor: @unchecked Sendable {
     /// RGB float32 tensor, run through `forward`, and the `[1, H*scale,
     /// W*scale, 3]` result is written straight back to a BGRA buffer with a
     /// per-pixel `[0, 1]` clamp.
-    func processWholeFrame(
+    public func processWholeFrame(
         _ rawInput: CVPixelBuffer,
         forward: (MLXArray) throws -> MLXArray
     ) throws -> CVPixelBuffer {
