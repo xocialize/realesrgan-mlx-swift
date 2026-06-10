@@ -1,0 +1,19 @@
+## Swift / SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+*.xcodeproj
+*.xcworkspace
+
+## Downloaded backbone weights — never commit (fetched from mlx-community at a pinned revision).
+/weights/
+
+## Xcode
+xcuserdata/
+DerivedData/
+*.xcuserstate
+
+## macOS
+.DS_Store
+/.xcode-build/
+default.profraw
